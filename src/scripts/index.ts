@@ -29,7 +29,6 @@ menuButton.innerHTML = `
   </button>
 `;
 
-
 const navbar = document.createElement("nav");
 navbar.className = "navbar";
 navbar.innerHTML = `
@@ -95,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll("a");
   links.forEach((link) => {
     link.addEventListener("click", () => {
-
       let targetId = link.getAttribute("href")?.substring(1);
       if (!targetId) targetId = "landing";
       const targetSection = document.getElementById(targetId);
@@ -114,10 +112,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-window.addEventListener("wheel", debounce((event: WheelEvent) => {
-  event.preventDefault();
-  handleScroll(event.deltaY);
-}, 100));
+window.addEventListener(
+  "wheel",
+  debounce((event: WheelEvent) => {
+    event.preventDefault();
+    handleScroll(event.deltaY);
+  }, 100),
+);
 
 let startY: number;
 let isScrolling: boolean = false;
@@ -142,7 +143,8 @@ document.addEventListener("touchmove", (event: TouchEvent) => {
 });
 
 function handleScroll(deltaY: number) {
-  const currentSection: HTMLElement | null = document.querySelector(".active-section");
+  const currentSection: HTMLElement | null =
+    document.querySelector(".active-section");
   let nextSection: HTMLElement | null;
 
   if (deltaY > 0) {
@@ -160,9 +162,12 @@ function handleScroll(deltaY: number) {
 
 document.documentElement.style.scrollBehavior = "auto";
 
-function debounce(func: (this: any, ...args: any[]) => void, wait: number): (...args: any[]) => void {
+function debounce(
+  func: (this: any, ...args: any[]) => void,
+  wait: number,
+): (...args: any[]) => void {
   let timeout: number | undefined;
-  return function(this: any, ...args: any[]): void {
+  return function (this: any, ...args: any[]): void {
     if (timeout !== undefined) {
       clearTimeout(timeout);
     }
@@ -171,8 +176,6 @@ function debounce(func: (this: any, ...args: any[]) => void, wait: number): (...
     }, wait);
   };
 }
-
-
 
 document.getElementById("menu-button")?.addEventListener("click", () => {
   const menu = document.getElementById("menu");
