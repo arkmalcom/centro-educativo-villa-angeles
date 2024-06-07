@@ -94,8 +94,7 @@ app.appendChild(container);
 document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll("a");
   links.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
+    link.addEventListener("click", () => {
 
       let targetId = link.getAttribute("href")?.substring(1);
       if (!targetId) targetId = "landing";
@@ -115,29 +114,64 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-window.addEventListener("wheel", (event) => {
+window.addEventListener("wheel", debounce((event: WheelEvent) => {
   event.preventDefault();
+  handleScroll(event.deltaY);
+}, 100));
 
-  const deltaY = event.deltaY;
+let startY: number;
+let isScrolling: boolean = false;
 
-  const currentSection = document.querySelector(".active-section");
-  let nextSection;
+document.addEventListener("touchstart", (event: TouchEvent) => {
+  startY = event.touches[0].clientY;
+});
+
+document.addEventListener("touchmove", (event: TouchEvent) => {
+  if (isScrolling) return;
+
+  const touchY: number = event.touches[0].clientY;
+  const deltaY: number = startY - touchY;
+
+  if (Math.abs(deltaY) > 30) {
+    isScrolling = true;
+    handleScroll(deltaY);
+    setTimeout(() => {
+      isScrolling = false;
+    }, 800);
+  }
+});
+
+function handleScroll(deltaY: number) {
+  const currentSection: HTMLElement | null = document.querySelector(".active-section");
+  let nextSection: HTMLElement | null;
 
   if (deltaY > 0) {
-    nextSection = currentSection?.nextElementSibling;
+    nextSection = currentSection?.nextElementSibling as HTMLElement | null;
   } else {
-    nextSection = currentSection?.previousElementSibling;
+    nextSection = currentSection?.previousElementSibling as HTMLElement | null;
   }
 
   if (nextSection) {
     nextSection.scrollIntoView({ behavior: "smooth" });
-
     currentSection?.classList.remove("active-section");
     nextSection.classList.add("active-section");
   }
-});
+}
 
 document.documentElement.style.scrollBehavior = "auto";
+
+function debounce(func: (this: any, ...args: any[]) => void, wait: number): (...args: any[]) => void {
+  let timeout: number | undefined;
+  return function(this: any, ...args: any[]): void {
+    if (timeout !== undefined) {
+      clearTimeout(timeout);
+    }
+    timeout = window.setTimeout(() => {
+      func.apply(this, args);
+    }, wait);
+  };
+}
+
 
 
 document.getElementById("menu-button")?.addEventListener("click", () => {
