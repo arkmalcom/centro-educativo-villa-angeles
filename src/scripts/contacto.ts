@@ -3,13 +3,10 @@ import { createSection } from "./components/section";
 
 export const contactoSection = () => {
   const content: string = `
-    <div class="relative top-36 left-1/4 z-100 lg:w-1/2 sm:w-96 h-96 bg-gradient-to-r from-sky-800 to-transparent border-t-2 border-l-2 border-sky-800 p-2">
-        <h1 class="text-transform: uppercase text-sky-100">Contacto</h1>
-        <p class="text-sky-100">Por favor no nos contacten para entablar demandas.</p>
-    </div>
-    `;
+    <p class="text-sky-100">Por favor no nos contacten para entablar demandas.</p>
+  `;
 
-  const section = createSection(contacto, content);
+  const section = createSection(contacto, content, "Contacto");
   section.id = "contacto";
 
   return section;
