@@ -24,8 +24,8 @@ const app = document.querySelector<HTMLDivElement>("#app")!;
 const menuButton = document.createElement("div");
 menuButton.className = "menu-button";
 menuButton.innerHTML = `
-  <button id="menu-button" class="md:hidden h-15 w-15 fixed top-0 z-20 ">
-    <i class="fas fa-bars w-10 h-10 text-sky-800 active:text-sky-600"></i>
+  <button id="menu-button" class="md:hidden h-12 w-12 fixed top-0 z-20 ">
+    <i class="fas fa-bars w-8 h-8 text-sky-800 active:text-sky-600"></i>
   </button>
 `;
 

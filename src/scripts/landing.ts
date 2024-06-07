@@ -6,8 +6,8 @@ import { createSection } from "./components/section";
 
 export const landingSection = () => {
   const content: string = `
-    <div class="relative md:top-1/3 lg:top-2/3 md:left-52 lg:left-1/2 left-2 border-b-4 border-l-4 border-sky-600 lg:w-2/6 md:w-3/4 w-40 top-1/3">
-      <h1 class="bg-sky-600 text-sky-100 w-36 pb-1 rounded-r-full font-semibold">Nuestros servicios</h1>
+    <div class="relative md:top-1/4 lg:top-1/2 md:left-20 max-md:left-1/2 md:border-l-4 max-md:border-r-4 border-sky-600 w-40 top-24">
+      <h1 class="bg-sky-600 text-sky-100 md:text-left text-right md:w-36 w-40 pb-1 md:pr-0 pr-2 md:rounded-r-full max-md:rounded-l-full font-semibold">Nuestros servicios</h1>
       <ul class="flex flex-col md:flex-row md:space-x-4 md:space-y-0 space-y-4 p-1">
           <li>
               <a href="#escuela">
@@ -34,7 +34,7 @@ export const landingSection = () => {
                   <div class="md:w-48 md:h-52 w-36 h-36 border-2 border-sky-800 overflow-hidden bg-black">
                       <img src="${servicioEducacionContinua}" alt="Servicio de educacion continua" class="w-full h-full object-cover transition-all duration-500 hover:scale-110 transition-opacity hover:opacity-60" />
                       <div class="bg-amber-900 w-full h-10 relative bottom-10 p-1">
-                          <p class="text-sky-100 uppercase text-center text-sm font-bold py-1">Educacion Continua</p>
+                          <p class="text-sky-100 uppercase text-center md:text-sm text-xs font-bold md:py-1">Educacion Continua</p>
                       </div>
                   </div>
               </a>
