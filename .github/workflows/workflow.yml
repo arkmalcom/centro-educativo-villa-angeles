@@ -28,9 +28,10 @@ jobs:
         run: pnpm install
 
       - name: Run Prettier Check
-        run: pnpm run prettier -c .
+        run: pnpm prettier -c .
 
   deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -53,5 +54,4 @@ jobs:
           path: "./dist"
       - name: Deploy to GitHub Pages
         id: deployment
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: actions/deploy-pages@v4
