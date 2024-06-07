@@ -6,6 +6,7 @@ import {
   faFacebook,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { landingSection } from "./landing.ts";
 import { serviciosSection } from "./servicios.ts";
 import { escuelaSection } from "./escuela.ts";
@@ -15,17 +16,26 @@ import { nosotrosSection } from "./nosotros.ts";
 import { contactoSection } from "./contacto.ts";
 import { footerComponent } from "./components/footer.ts";
 
-library.add(faInstagram, faFacebook, faTwitter);
+library.add(faInstagram, faFacebook, faTwitter, faBars);
 dom.watch();
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
+const menuButton = document.createElement("div");
+menuButton.className = "menu-button";
+menuButton.innerHTML = `
+  <button id="menu-button" class="lg:hidden h-15 w-15 fixed top-0 z-20 ">
+    <i class="fas fa-bars w-10 h-10 text-sky-800 active:text-sky-600"></i>
+  </button>
+`;
+
+
 const navbar = document.createElement("nav");
 navbar.className = "navbar";
 navbar.innerHTML = `
-  <div class="bg-sky-800 h-50 justify-between w-96 rounded-r-full shadow-md fixed top-0 z-10">
+  <div id="menu" class="slide-in-left lg:slide-out-left lg:block bg-sky-800 h-50 justify-between lg:w-96 w-1/4 lg:rounded-r-full lg:shadow-md fixed lg:top-0 top-10 z-10">
     <div class="flex space-x-4 p-2">
-      <ul class="flex space-x-4">
+      <ul class="flex lg:flex-row flex-col lg:space-x-4">
         <li><a href="#landing" class="text-sky-50 text-transform: uppercase font-bold hover:text-sky-200">Inicio</a></li>
         <li><a href="#servicios" class="text-sky-50 text-transform: uppercase font-bold hover:text-sky-200">Servicios</a></li>
         <li><a href="#nosotros" class="text-sky-50 text-transform: uppercase font-bold hover:text-sky-200">Nosotros</a></li>
@@ -38,11 +48,11 @@ navbar.innerHTML = `
 const socialsBar = document.createElement("div");
 socialsBar.className = "socials-bar";
 socialsBar.innerHTML = `
-  <div class="bg-teal-500 h-15 w-32 rounded-r-full shadow-md fixed top-10 z-10">
-    <div class="flex space-x-4 p-2">
-      <a href="#" class="text-sky-50"><i class="fab fa-instagram"></i></a>
-      <a href="#" class="text-sky-50"><i class="fab fa-facebook"></i></a>
-      <a href="#" class="text-sky-50"><i class="fab fa-twitter"></i></a>
+  <div class="bg-teal-500 h-15 w-32 rounded-r-full shadow-md fixed lg:top-10 top-3/4 z-10">
+    <div class="flex space-x-6 p-2">
+      <a href="#" class="text-sky-50 hover:text-sky-200"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="text-sky-50 hover:text-sky-200"><i class="fab fa-facebook"></i></a>
+      <a href="#" class="text-sky-50 hover:text-sky-200"><i class="fab fa-twitter"></i></a>
     </div>
   </div>
 `;
@@ -51,7 +61,7 @@ const logo = document.createElement("img");
 logo.src = cevdalogo;
 logo.alt = "Centro Educativo Villa de Angeles Logo";
 logo.className =
-  "logo bg-white fixed right-1 h-28 w-28 flex items-center z-10 rounded-b-full border-sky-800 border-b-2 border-l-2 border-r-2 pb-1";
+  "logo bg-white fixed lg:right-1 right-1/4 lg:h-28 lg:w-28 w-20 h-20 flex items-center z-10 rounded-b-full border-sky-800 border-b-2 border-l-2 border-r-2 pb-1";
 
 const container = document.createElement("div");
 container.className = "container";
@@ -74,6 +84,7 @@ container.appendChild(contacto);
 
 const footer = footerComponent();
 
+app.appendChild(menuButton);
 app.appendChild(navbar);
 app.appendChild(socialsBar);
 app.appendChild(logo);
@@ -127,3 +138,12 @@ window.addEventListener("wheel", (event) => {
 });
 
 document.documentElement.style.scrollBehavior = "auto";
+
+
+document.getElementById("menu-button")?.addEventListener("click", () => {
+  const menu = document.getElementById("menu");
+  if (menu) {
+    menu.classList.toggle("slide-in-left");
+    menu.classList.toggle("slide-out-left");
+  }
+});
